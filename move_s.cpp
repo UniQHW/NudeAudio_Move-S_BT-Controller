@@ -69,10 +69,10 @@ bool led::state() {
   return !digitalRead(pin); // Invertion due to pull-up resistor on input pin
 }
 
-/* --- struct MoveS --- */
+/* --- struct move_s --- */
 
 /* Check if device is paired */
-bool MoveS::paired() {
+bool move_s::paired() {
   timestamp stamp(&micros);
 
   stamp.setStamp(BT_LED_PAIRING_INTERVAL_USEC);
@@ -87,7 +87,7 @@ bool MoveS::paired() {
 }
 
 /* BT LED in sleep mode */
-bool MoveS::pairing_sleepMode() {
+bool move_s::pairing_sleepMode() {
   timestamp stamp(&micros);
 
   stamp.setStamp(BT_LED_PAIRING_INTERVAL_USEC);
@@ -102,11 +102,11 @@ bool MoveS::pairing_sleepMode() {
 }
 
 /* BT LED in blinking mode */
-bool MoveS::pairing_blinkMode() {
+bool move_s::pairing_blinkMode() {
   return (!paired() && !pairing_sleepMode());
 }
 
 /* Automatically determine bt mode */
-move_s_bt_mode MoveS::mode() {
+move_s_bt_mode move_s::mode() {
   return (paired() ? paired_mode : (pairing_sleepMode() ? pair_sleep_mode : pair_blink_mode));
 }

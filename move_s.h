@@ -103,8 +103,8 @@ private:
 };
 
 /* Mai ndevice structure */
-struct MoveS {
-  MoveS(pin_t bt_led, pin_t pwr_led, pin_t spk) :
+struct move_s {
+  move_s(pin_t bt_led, pin_t pwr_led, pin_t spk) :
   bt_led(new led(bt_led)), pwr_led(new led(pwr_led)),
   spk(new speaker(spk)) {
     pinMode(bt_led, INPUT);
@@ -112,7 +112,7 @@ struct MoveS {
     pinMode(spk, INPUT);
   };
 
-  ~MoveS() {
+  ~move_s() {
     delete bt_led;
     delete pwr_led;
     delete spk;

@@ -24,29 +24,29 @@
 
 #include <move_s.h>
 
-MoveS *move_s;
+move_s *mvs;
 move_s_bt_mode mode;
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 
   /* Initialize with BT LED on pin 2, power led on pin 4 and speaker on pin a5 */
-  move_s = new MoveS(2, 4, A5);
+  mvs = new move_s(2, 4, A5);
 }
 
 void loop() {
   /* Evaluate device mode */
-  switch(move_s->mode()) {
+  switch(mvs->mode()) {
 
     /* Device is paired */
     case paired_mode :
       Serial.println("Device has been paired");
 
-      while(move_s->mode() == paired_mode) {
+      while(mvs->mode() == paired_mode) {
         /* If volume signal reaches 850+, receive high signal */
-        if(move_s->spk->sig(SPK_NOISE_LEVEL_HIGH)) {
+        if(mvs->spk->sig(SPK_NOISE_LEVEL_HIGH)) {
           digitalWrite(LED_BUILTIN, HIGH);
-          while(move_s->spk->sig(SPK_NOISE_LEVEL_HIGH));
+          while(mvs->spk->sig(SPK_NOISE_LEVEL_HIGH));
           digitalWrite(LED_BUILTIN, LOW);
         }
       }
@@ -57,13 +57,13 @@ void loop() {
     /* Device is in pairing mode and is blinking */
     case pair_blink_mode :
       Serial.println("Awaiting device");
-      while(move_s->mode() == pair_blink_mode);
+      while(mvs->mode() == pair_blink_mode);
       break;
 
     /* Device is in pairing mode, but isn't blinking */
     case pair_sleep_mode :
       Serial.println("Entered sleep mode");
       Serial.println("Awaiting device");
-      while(move_s->mode() == pair_sleep_mode);
+      while(mvs->mode() == pair_sleep_mode);
   }
 }
