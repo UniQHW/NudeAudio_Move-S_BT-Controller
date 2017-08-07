@@ -61,7 +61,7 @@
 
 /* Sound volume parameters */
 #define SPK_NOISE_FILTERATION_ATTEMPTS 500 // Search volume pool of 500 analog reads
-#define SPK_NOISE_LEVEL_HIGH           850 // Reads above this value can be considered as "loud" tones
+#define SPK_NOISE_LEVEL_HIGH           10  // Reads under this value can be considered as "loud" tones
 
 #ifdef DEVICE_PINS_GT_BYTE  // Device has more than 256 pins
 typedef unsigned int pin_t;

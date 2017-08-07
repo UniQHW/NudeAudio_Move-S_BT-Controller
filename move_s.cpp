@@ -31,7 +31,7 @@
  * For reference volume readings, see README.md */
 bool speaker::sig(unsigned int filter) {
   for (int i = 0; i < SPK_NOISE_FILTERATION_ATTEMPTS; i++) {
-    if (analogRead(pin) > filter) {
+    if (analogRead(pin) < filter) {
       return HIGH;
     }
   }
