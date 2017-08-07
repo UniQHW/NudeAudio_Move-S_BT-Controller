@@ -1,0 +1,69 @@
+/*
+ * Copyright 2017 Patrick Pedersen <ctx.xda@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+
+ * Author :
+ * Patrick Pedersen <ctx.xda@gmail.com>
+
+ * DESCRIPTION :
+ * Example program for the Nude Audio Move S BT Controller Library
+
+ */
+
+#include <move_s.h>
+
+MoveS *move_s;
+move_s_bt_mode mode;
+
+void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  /* Initialize with BT LED on pin 2, power led on pin 4 and speaker on pin a5 */
+  move_s = new MoveS(2, 4, A5);
+}
+
+void loop() {
+  /* Evaluate device mode */
+  switch(move_s->mode()) {
+
+    /* Device is paired */
+    case paired_mode :
+      Serial.println("Device has been paired");
+
+      while(move_s->mode() == paired_mode) {
+        /* If volume signal reaches 850+, receive high signal */
+        if(move_s->spk->sig(SPK_NOISE_LEVEL_HIGH)) {
+          digitalWrite(LED_BUILTIN, HIGH);
+          while(move_s->spk->sig(SPK_NOISE_LEVEL_HIGH));
+          digitalWrite(LED_BUILTIN, LOW);
+        }
+      }
+
+      Serial.println("Device disconnected");
+      break;
+
+    /* Device is in pairing mode and is blinking */
+    case pair_blink_mode :
+      Serial.println("Awaiting device");
+      while(move_s->mode() == pair_blink_mode);
+      break;
+
+    /* Device is in pairing mode, but isn't blinking */
+    case pair_sleep_mode :
+      Serial.println("Entered sleep mode");
+      Serial.println("Awaiting device");
+      while(move_s->mode() == pair_sleep_mode);
+  }
+}
