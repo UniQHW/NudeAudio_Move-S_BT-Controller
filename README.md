@@ -8,6 +8,7 @@ The controller provides the Arduino with a variety of signals which can be inter
 For instance, using the sound volume signal (```move_s.spk->sig(volume))```), the Arduino may be controlled trough Bluetooth with the use of sound.   
 
 ![Setup](img/MoveS_BT-Controller_bb.png)
+![Schem](img/MoveS_BT-Controller_schem.png)
 
 Layouts made using Fritzing
 
