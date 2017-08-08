@@ -37,6 +37,9 @@
 
  */
 
+#ifndef MOVE_S_R_H_INCLUDED
+#define MOVE_S_R_H_INCLUDED
+
 /* Blinking interval of LED during pairing mode
  * The interval lies at 204 545 usec, however, as various
  * attributes may result in slight reading errors,
@@ -124,3 +127,5 @@ struct move_s_r {
 
   move_s_bt_mode mode();    // Automatically determine bt mode
 };
+
+#endif // MOVE_S_R_H_INCLUDED

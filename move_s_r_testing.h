@@ -23,6 +23,9 @@
 
  */
 
+#ifndef MOVE_S_R_TESTING_INCLUDED
+#define MOVE_S_R_TESTING_INCLUDED
+
 #include <Interval.h>
 #include "move_s_r.h"
 
@@ -34,3 +37,5 @@ int measurePairingBlinks();         // Measure ammount of blinks
 time_us measurePairingBlinkTotal(); // Measure total interval time in usec
 
 int measureSpeakerSig();            // Measure volume output (NOTE: Volume output is very noisy, filtering will help)
+
+#endif // MOVE_S_R_TESTING_INCLUDED
