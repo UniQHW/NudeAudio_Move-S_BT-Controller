@@ -18,35 +18,35 @@
  * Patrick Pedersen <ctx.xda@gmail.com>
 
  * DESCRIPTION :
- * Example program for the Nude Audio Move S BT Controller Library
+ * Example program for the Nude Audio Move S Readable BT Controller Library
 
  */
 
-#include <move_s.h>
+#include <move_s_r.h>
 
-move_s *mvs;
+move_s_r *mvs_r;
 move_s_bt_mode mode;
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 
-  /* Initialize with BT LED on pin 2, power led on pin 4 and speaker on pin a5 */
-  mvs = new move_s(2, 4, A5);
+  /* Initialize with BT LED on pin 2 and speaker on pin a5 */
+  mvs_r = new move_s_r(2, A5);
 }
 
 void loop() {
   /* Evaluate device mode */
-  switch(mvs->mode()) {
+  switch(mvs_r->mode()) {
 
     /* Device is paired */
     case paired_mode :
       Serial.println("Device has been paired");
 
-      while(mvs->mode() == paired_mode) {
+      while(mvs_r->mode() == paired_mode) {
         /* If volume signal reaches 850+, receive high signal */
-        if(mvs->spk->sig(SPK_NOISE_LEVEL_HIGH)) {
+        if(mvs_r->spk->sig(SPK_NOISE_LEVEL_HIGH)) {
           digitalWrite(LED_BUILTIN, HIGH);
-          while(mvs->spk->sig(SPK_NOISE_LEVEL_HIGH));
+          while(mvs_r->spk->sig(SPK_NOISE_LEVEL_HIGH));
           digitalWrite(LED_BUILTIN, LOW);
         }
       }
@@ -57,13 +57,13 @@ void loop() {
     /* Device is in pairing mode and is blinking */
     case pair_blink_mode :
       Serial.println("Awaiting device");
-      while(mvs->mode() == pair_blink_mode);
+      while(mvs_r->mode() == pair_blink_mode);
       break;
 
     /* Device is in pairing mode, but isn't blinking */
     case pair_sleep_mode :
       Serial.println("Entered sleep mode");
       Serial.println("Awaiting device");
-      while(mvs->mode() == pair_sleep_mode);
+      while(mvs_r->mode() == pair_sleep_mode);
   }
 }
