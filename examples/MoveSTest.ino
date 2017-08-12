@@ -43,7 +43,7 @@ void loop() {
       Serial.println("Device has been paired");
 
       while(mvs_r->mode() == paired_mode) {
-        /* If volume signal reaches 850+, receive high signal */
+        /* If volume signal reaches below 10, receive high signal */
         if(mvs_r->spk->sig(SPK_NOISE_LEVEL_HIGH)) {
           digitalWrite(LED_BUILTIN, HIGH);
           while(mvs_r->spk->sig(SPK_NOISE_LEVEL_HIGH));
