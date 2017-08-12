@@ -57,10 +57,6 @@
  */
 #define BT_LED_PAIRING_INTERVAL_TOTAL_USEC 180000000
 
-/* Makes work simpler as invertion is required due to pull-up resistor
- * see schematic for more details */
-#define BT_LED_OFF HIGH
-#define BT_LED_ON  LOW
 
 /* Sound volume parameters */
 #define SPK_NOISE_FILTERATION_ATTEMPTS 500 // Search volume pool of 500 analog reads
